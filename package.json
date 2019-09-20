@@ -1,0 +1,16 @@
+{
+  "name": "nodejscms",
+  "version": "1.0.1",
+  "description": "Nodejs CMS Applications",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "ganeshk750",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.7.1"
+  }
+}
