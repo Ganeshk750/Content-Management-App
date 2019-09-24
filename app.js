@@ -2,8 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const hbs = require('express-handlebars');
-const { mongodbUrl , port}= require('./config/configuration');
+const { mongodbUrl , port, globalVariables}= require('./config/configuration');
+const flash = require('connect-flash');
+const session = require('express-session');
 const app = express();
+
 
 /* Configure MongoDb  */
 mongoose.connect(mongodbUrl,{ useUnifiedTopology: true })
@@ -13,17 +16,27 @@ mongoose.connect(mongodbUrl,{ useUnifiedTopology: true })
         console.log('Databse Connection Failed..');
     });
 
-/* Setup Views Engine To Use Handlebars  */
-
-app.engine('handlebars', hbs({ defaultLayout: 'default'}));
-app.set('view engine', 'handlebars');
-
-
 
 /* Configure Express */
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+/* Flash and Session */
+app.use(session({
+    secret: 'anysecret',
+    saveUninitialized: true,
+    resave: true
+}));
+
+app.use(flash());
+app.use(globalVariables);
+
+/* Setup Views Engine To Use Handlebars  */
+app.engine('handlebars', hbs({ defaultLayout: 'default'}));
+app.set('view engine', 'handlebars');
+
 
 /* Routes */
 const defaultRoutes = require('./routes/defaultRoutes');
