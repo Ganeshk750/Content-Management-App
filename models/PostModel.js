@@ -23,6 +23,7 @@ const PostSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "user"
   },
+
   category: {
     type: Schema.Types.ObjectId,
     ref: "category"
@@ -38,7 +39,12 @@ const PostSchema = new Schema({
   allowComments: {
     type: Boolean,
     default: false
-  }
+  },
+
+  file: {
+    type: String,
+    default: ''
+}
 
 });
 
