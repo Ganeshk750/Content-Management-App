@@ -20,12 +20,13 @@ router.route('/posts')
 
 
 router.route('/posts/create')
-      .get(adminController.createPosts)
+      .get(adminController.createPostsGet)
       .post(adminController.submitPosts);
 
 
 router.route('/posts/edit/:id')
-      .get(adminController.editPost);
+      .get(adminController.editPost)
+      .put(adminController.editPostUpdate);
 
 
 
@@ -35,5 +36,12 @@ router.route('/posts/delete/:id')
 /* Admin category routes */
 router.route('/category')
       .get(adminController.getCategories);
-      
+
+router.route('/category/create')
+      .post(adminController.createCategories);
+     
+router.route('/category/edit/:id')   
+      .get(adminController.editCategoriesGetRoute)
+      .post(adminController.editCategoriesPostRoute);
+
 module.exports = router;
