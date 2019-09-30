@@ -2,10 +2,16 @@
     <h1>Create New Post</h1>
     <div class="row p-4">
         <div class="col-md-10">
-            <form action="/admin/posts/create" method="POST">
+            <form action="/admin/posts/create" method="POST" enctype="multipart/form-data">
               <div class="form-roup">
                   <lebel for="title">Title</lebel>
                   <input type="text" class="form-control" name="title" id="title" placeholder="Title">
+              </div>
+              
+              {{!-- fileUpload form  --}}
+              <div class="form-group">
+                  <label for="file">File Upload</label>
+                  <input type="file" class="form-control" id="file" name="uploadedFile">
               </div>
 
                <div class="form-roup">

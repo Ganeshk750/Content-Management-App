@@ -6,6 +6,7 @@ const { mongodbUrl , port, globalVariables}= require('./config/configuration');
 const flash = require('connect-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const fileUpload = require('express-fileupload');
 const { selectOption } = require('./config/customFunction');
 const app = express();
 
@@ -34,6 +35,9 @@ app.use(session({
 
 app.use(flash());
 app.use(globalVariables);
+
+/* File Upload Middleware */
+app.use(fileUpload());
 
 /* Setup Views Engine To Use Handlebars  */
 app.engine('handlebars', hbs({ defaultLayout: 'default', helpers:{select: selectOption}}));
