@@ -81,7 +81,7 @@
             var data = $("#category-title").val();
             var id = $("#category-id").val();
 
-            $.ajax({
+            $.ajax({ 
                 url: `/admin/category/edit/${id}`,
                 type: 'POST',
                 data: {name: data},
