@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const bodyparser = require('body-parser');
+const passport = require("passport");
 const hbs = require('express-handlebars');
 const { mongodbUrl , port, globalVariables}= require('./config/configuration');
 const flash = require('connect-flash');
@@ -19,6 +21,13 @@ mongoose.connect(mongodbUrl,{ useUnifiedTopology: true })
         console.log('Databse Connection Failed..');
     });
 
+
+ //Passport middleware
+app.use(passport.initialize());   
+
+// middleware for body
+app.use(bodyparser.urlencoded({extended: false}));
+app.use(bodyparser.json());
 
 /* Configure Express */
 app.use(express.json());
