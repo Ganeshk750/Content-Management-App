@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const bodyparser = require('body-parser');
 const passport = require("passport");
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const hbs = require('express-handlebars');
 const { mongodbUrl , port, globalVariables}= require('./config/configuration');
 const flash = require('connect-flash');
@@ -14,16 +16,16 @@ const app = express();
 
 
 /* Configure MongoDb  */
-mongoose.connect(mongodbUrl,{ useUnifiedTopology: true })
+mongoose.connect(mongodbUrl,{ useUnifiedTopology: true ,useNewUrlParser: true})
     .then(response =>{
         console.log('Mongodb Connected Scuccessflly !!');
     }).catch(err =>{
         console.log('Databse Connection Failed..');
     });
 
-
- //Passport middleware
-app.use(passport.initialize());   
+  
+//app.use(morgan('dev'));//log every request to the console
+//app.use(cookieParser());//read cookies (needed for auth)    
 
 // middleware for body
 app.use(bodyparser.urlencoded({extended: false}));
@@ -43,6 +45,12 @@ app.use(session({
 }));
 
 app.use(flash());
+
+ //Passport middleware and Initialize//
+ app.use(passport.initialize());
+ app.use(passport.session()); 
+
+ /* Use Global Variables */
 app.use(globalVariables);
 
 /* File Upload Middleware */

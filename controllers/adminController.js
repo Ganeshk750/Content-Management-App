@@ -1,5 +1,6 @@
 const Post = require('../models/PostModel');
 const Category = require('../models/CategoryModel');
+const Comment = require('../models/CommentModel');
 const  { isEmpty } = require('../config/customFunction');
 
 module.exports = {
@@ -147,9 +148,16 @@ module.exports = {
 
             });
         }
+    },
+    /* COMMENTS ROUTES SECTIONS */
+
+    getComments: (req,res) =>{
+        Comment.find()
+               .populate('user')
+               .then(comment =>{
+                   res.render('admin/comments/index',{comment: comment});
+               })
     }
-
-
 };    
 
 
